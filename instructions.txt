@@ -1,0 +1,41 @@
+This is a Node ExpressJS server that serves static files from /public folder
+
+The HTML code in this project is not a React app. Simple HTML page
+
+This project is to test Cache-Control caching headers set by origin servers.
+In this case the Node server inside server.js will set caching headers in
+response so that browser can cache content
+
+Run the app:
+------------
+node server.js
+http://localhost:3000
+
+
+Idea is:
+---------
+For static JS, CSS, image files specify a Cache-Control: max-age header so that 
+browser can cache this for long time. 
+For index.html file we want it to be fetched from server every time there is change
+You can do 2 ways
+1. cache-control: no-cache -> cache the file, but befofe using it from browser cache talk to 
+server and see if there is a new version of index.html available in server. Download if available. Otherwise 
+use it fromt he cache. In that case server responds with a 304 Not Modified without any body. So this response
+will still be faster that the response with the new index.html content.
+2. cache-control: no-store -> never cache the file. Always fetch from server
+
+Observations:
+--------------
+By default ExpressJS server sets into the response headers of static files: 
+Cache-Control: public, max-age=0
+
+public means both browser and CDN can cache
+max-age=0 means cache it for 0 seconds. Basically don't cache it.
+
+References:
+-----------
+https://expressjs.com/en/api.html#example.of.express.static
+https://medium.com/@codebyamir/a-web-developers-guide-to-browser-caching-cc41f3b73e7c
+https://create-react-app.dev/docs/production-build/
+https://jakearchibald.com/2016/caching-best-practices/
+https://web.dev/uses-long-cache-ttl/?utm_source=lighthouse&utm_medium=unknown
