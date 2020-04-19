@@ -13,7 +13,7 @@ var options = {
       res.set({
           'x-timestamp': Date.now(),
           'joseph' : 'hi',
-          'Cache-Control' : (path.includes('index.html')) ? 'no-cache, max-age: 3600' : 'public, max-age: 3600'
+          'Cache-Control' : (path.includes('index.html')) ? 'no-store' : 'public, max-age: 3600'
         });
     }
 }
