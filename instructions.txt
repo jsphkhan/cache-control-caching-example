@@ -24,6 +24,13 @@ use it fromt he cache. In that case server responds with a 304 Not Modified with
 will still be faster that the response with the new index.html content.
 2. cache-control: no-store -> never cache the file. Always fetch from server
 
+Examples of Cache-Control headers:
+------------------------------------
+Cache-Control: public, max-age: 3600 (cache both on browser and CDN)
+Cache-Control: private, max-age: 3600 (cache only on the browser)
+Cache-Control: no-store (do not cache)
+Cache-Control: no-cache, max-age: 3600 (cache the file, next time ask the server if new version available, or else use the cached file)
+
 Observations:
 --------------
 By default ExpressJS server sets into the response headers of static files: 
